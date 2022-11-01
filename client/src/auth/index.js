@@ -10,13 +10,15 @@ export const AuthActionType = {
     GET_LOGGED_IN: "GET_LOGGED_IN",
     LOGIN_USER: "LOGIN_USER",
     LOGOUT_USER: "LOGOUT_USER",
-    REGISTER_USER: "REGISTER_USER"
+    REGISTER_USER: "REGISTER_USER",
+    ERROR_MESSAGE: "ERROR_MESSAGE",
 }
 
 function AuthContextProvider(props) {
     const [auth, setAuth] = useState({
         user: null,
-        loggedIn: false
+        loggedIn: false,
+        error: null
     });
     const history = useHistory();
 
@@ -30,26 +32,38 @@ function AuthContextProvider(props) {
             case AuthActionType.GET_LOGGED_IN: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: payload.loggedIn
+                    loggedIn: payload.loggedIn,
+                    error: null
                 });
             }
             case AuthActionType.LOGIN_USER: {
                 return setAuth({
                     user: payload.user,
-                    loggedIn: true
+                    loggedIn: true,
+                    error: null
                 })
             }
             case AuthActionType.LOGOUT_USER: {
                 return setAuth({
                     user: null,
-                    loggedIn: false
+                    loggedIn: false,
+                    error: null
                 })
             }
             case AuthActionType.REGISTER_USER: {
                 return setAuth({
                     user: payload.user,
                     loggedIn: true
+                    ,error: null
                 })
+            }
+            case AuthActionType.ERROR_MESSAGE:{
+                return setAuth({
+                    user: null,
+                    loggedIn: false,
+                    error: payload
+                })
+
             }
             default:
                 return auth;
@@ -68,9 +82,14 @@ function AuthContextProvider(props) {
             });
         }
     }
-
+    auth.removeErrorMessage = async function(){
+        authReducer({
+            type: AuthActionType.ERROR_MESSAGE,
+            payload: null
+        })
+    }
     auth.registerUser = async function(firstName, lastName, email, password, passwordVerify) {
-        const response = await api.registerUser(firstName, lastName, email, password, passwordVerify);      
+        /*const response = await api.registerUser(firstName, lastName, email, password, passwordVerify);      
         if (response.status === 200) {
             authReducer({
                 type: AuthActionType.REGISTER_USER,
@@ -78,12 +97,29 @@ function AuthContextProvider(props) {
                     user: response.data.user
                 }
             })
-            history.push("/login");
+            //when registered it should lead to home screen
+            history.push("/");
+        }*/
+        //accomodating errors in the registration
+        try{
+            const response = await api.registerUser(firstName, lastName, email, password, passwordVerify);
+            authReducer({
+                type: AuthActionType.REGISTER_USER,
+                payload: {
+                    user: response.data.user
+                }})
+            history.push("/");
+        }
+        catch(error){
+            authReducer({
+                type: AuthActionType.ERROR_MESSAGE,
+                payload: error.response.data.errorMessage
+            })
         }
     }
 
     auth.loginUser = async function(email, password) {
-        const response = await api.loginUser(email, password);
+        /*const response = await api.loginUser(email, password);
         if (response.status === 200) {
             authReducer({
                 type: AuthActionType.LOGIN_USER,
@@ -92,6 +128,22 @@ function AuthContextProvider(props) {
                 }
             })
             history.push("/");
+        }*/
+        //accomodating errors for login
+        try{
+            const response = await api.loginUser(email,password);
+            authReducer({
+                type: AuthActionType.LOGIN_USER,
+                payload: {
+                    user: response.data.user
+                }})
+            history.push("/");
+        }
+        catch(error){
+            authReducer({
+                type: AuthActionType.ERROR_MESSAGE,
+                payload: error.response.data.errorMessage
+            })
         }
     }
 

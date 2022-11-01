@@ -6,6 +6,7 @@ import ListCard from './ListCard'
 import LoginScreen from './LoginScreen'
 import MUIDeleteModal from './MUIDeleteModal'
 import MUIEditSongModal from './MUIEditSongModal'
+import MUIErrorModal from './MUIErrorModal'
 import MUIRemoveSongModal from './MUIRemoveSongModal'
 import RegisterScreen from './RegisterScreen'
 import SongCard from './SongCard'
@@ -27,6 +28,7 @@ export {
     LoginScreen,
     MUIDeleteModal,
     MUIEditSongModal,
+    MUIErrorModal,
     MUIRemoveSongModal,
     SongCard,
     RegisterScreen,
