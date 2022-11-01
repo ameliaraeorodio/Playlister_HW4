@@ -40,6 +40,9 @@ const HomeScreen = () => {
     return (
         <div id="playlist-selector">
             <div id="list-selector-heading">
+                <Typography variant="h2">Your Lists</Typography>
+            </div>
+            <div>
             <Fab 
                 color="primary" 
                 aria-label="add"
@@ -48,7 +51,6 @@ const HomeScreen = () => {
             >
                 <AddIcon />
             </Fab>
-                <Typography variant="h2">Your Lists</Typography>
             </div>
             <div id="list-selector-list">
                 {
