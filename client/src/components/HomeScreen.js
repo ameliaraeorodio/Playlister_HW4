@@ -7,6 +7,7 @@ import AddIcon from '@mui/icons-material/Add';
 import Fab from '@mui/material/Fab'
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography'
+import { Statusbar } from '../components'
 /*
     This React component lists all the top5 lists in the UI.
     
@@ -57,6 +58,9 @@ const HomeScreen = () => {
                     listCard
                 }
                 <MUIDeleteModal />
+            </div>
+            <div>
+                <Statusbar />
             </div>
         </div>)
 }
