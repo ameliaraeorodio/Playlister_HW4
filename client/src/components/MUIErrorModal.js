@@ -3,6 +3,7 @@ import GlobalStoreContext from '../auth';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { AlertTitle, Alert, Button, autocompleteClasses } from '@mui/material';
 
 const style = {
     position: 'absolute',
@@ -11,10 +12,12 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    borderRadius: '25px'
 };
+const button = {
+    display: 'flex',
+    justifyContent: 'center'
+}
 
 export default function MUIErrorModal() {
     const { auth } = useContext(GlobalStoreContext);
@@ -33,16 +36,16 @@ export default function MUIErrorModal() {
         >
             <Box sx={style}>
                 <div className="modal-dialog">
-                <header className="dialog-header">
-                    ERROR! {error}
-                </header>
-                <div id="confirm-cancel-container">
-                    <button
-                        id="dialog-no-button"
-                        className="modal-button"
-                        onClick={handleCloseError}
-                    >Cancel</button>
-                </div>
+                <Alert severity = "warning">
+                    <AlertTitle> Warning</AlertTitle>
+                    {error}
+                </Alert>
+                <Box sx = {button}>
+                    <Button variant = "outlined"
+                        onClick={ handleCloseError}
+                    >Close
+                    </Button>
+                </Box>
             </div>
             </Box>
         </Modal>

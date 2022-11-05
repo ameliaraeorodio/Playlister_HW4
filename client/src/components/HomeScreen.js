@@ -15,7 +15,13 @@ import { Statusbar } from '../components'
 */
 const HomeScreen = () => {
     const { store } = useContext(GlobalStoreContext);
-
+    const button = {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: '10px',
+        margin: '10px'
+    }
     useEffect(() => {
         store.loadIdNamePairs();
     }, []);
@@ -41,16 +47,16 @@ const HomeScreen = () => {
     return (
         <div id="playlist-selector">
             <div id="list-selector-heading">
-                <Typography variant="h2">Your Lists</Typography>
+                <Typography variant="h2" color = "white" fontSize = '2.4rem' align = 'center'>Your Lists</Typography>
             </div>
             <div>
-            <Fab 
+            <Fab
                 color="primary" 
                 aria-label="add"
                 id="add-list-button"
                 onClick={handleCreateNewList}
             >
-                <AddIcon />
+                <AddIcon sx = {button}/>
             </Fab>
             </div>
             <div id="list-selector-list">

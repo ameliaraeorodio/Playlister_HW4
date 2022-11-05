@@ -3,7 +3,7 @@ import GlobalStoreContext from '../store';
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-
+import { Button } from '@mui/material';
 const style = {
     position: 'absolute',
     top: '50%',
@@ -11,11 +11,20 @@ const style = {
     transform: 'translate(-50%, -50%)',
     width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
+    borderRadius: '25px'
 };
-
+const text = {
+    display: 'flex',
+    justifyContent: 'center',
+    fontSize: '25px'
+};
+const buttons = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    gap: '10px',
+    margin: '10px'
+}
 export default function MUIDeleteModal() {
     const { store } = useContext(GlobalStoreContext);
     let name = "";
@@ -35,20 +44,20 @@ export default function MUIDeleteModal() {
         >
             <Box sx={style}>
                 <div className="modal-dialog">
-                <header className="dialog-header">
+                <Box sx = {text}>
                     Delete the {name} Playlist?
-                </header>
+                </Box>
                 <div id="confirm-cancel-container">
-                    <button
-                        id="dialog-yes-button"
-                        className="modal-button"
-                        onClick={handleDeleteList}
-                    >Confirm</button>
-                    <button
-                        id="dialog-no-button"
-                        className="modal-button"
-                        onClick={handleCloseModal}
-                    >Cancel</button>
+                    <Box sx = {buttons}>
+                        <Button variant = "outlined"
+                            onClick={handleDeleteList}
+                        >Confirm
+                        </Button>
+                        <Button variant = "outlined"
+                            onClick={handleCloseModal}
+                        >Close
+                        </Button>
+                    </Box>
                 </div>
             </div>
             </Box>
