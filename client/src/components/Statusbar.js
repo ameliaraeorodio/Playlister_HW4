@@ -9,12 +9,20 @@ import { Typography } from '@mui/material'
 */
 function Statusbar() {
     const { store } = useContext(GlobalStoreContext);
+    const style = {
+        position: "fixed",
+        bottom: "0",
+        display: "flex",
+        justifyContent: 'center',
+        paddingBottom : '50px',
+        color: "#6495ED"
+    }
     let text ="";
     if (store.currentList)
         text = store.currentList.name;
     return (
         <div id="playlister-statusbar">
-            <Typography variant="h4">{text}</Typography>
+            <Typography  sx = {style} variant="h4">{text}</Typography>
         </div>
     );
 }
